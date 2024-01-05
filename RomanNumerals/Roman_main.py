@@ -10,10 +10,11 @@ class RomanNumerals:
     class Roman_Exception(Exception):
             def __init__(self, *args):
                 if args:
-                    self.message = args[0]
+                    self.message = args[1] if len(args) > 1 else None
+                    self.val = args[0]
                 else:
                     self.message = None
-
+                    self.val = None
             def __str__(self):
                 if self.message:
                     return "Roman_TransformationError, The '{0}' has wrong format. ".format(self.message)
@@ -123,14 +124,14 @@ class RomanNumerals:
                     answer += let
                     break
         if answer == '':
-            assert False, "You can't trasform double or negative numbers, only naturals."
+            raise RomanNumerals.Roman_Exception(val, "You can't trasform double or negative numbers, only naturals.")
         return answer
 
     @classmethod
     def from_roman(cls, roman_num: str, str_c = True) -> int | str:
         '''Перевод из Римской системы в десятичную.'''
         if not cls.isrome(roman_num):
-            raise cls.Roman_Exception("Grammatic Error.")
+            raise cls.Roman_Exception(roman_num, "Grammatic Error")
         answer = 0
         while len(roman_num) > 0:
             for num, let in cls.alph:

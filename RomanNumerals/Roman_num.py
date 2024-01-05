@@ -1,4 +1,4 @@
-from Roman_main import RomanNumerals
+from Roman_Numbers.Roman_main import RomanNumerals
 
 class Roman_Exception(Exception):
         def __init__(self, *args):
@@ -104,7 +104,7 @@ def to_roman(val: int | str) -> str:
                 answer += let
                 break
     if answer == '':
-        assert False, "You can't trasform double or negative numbers, only naturals."
+        raise RomanNumerals.Roman_Exception(val, "You can't trasform double or negative numbers, only naturals.")
     return answer
 
 def from_roman(roman_num: str, str_c = True) -> int | str:
